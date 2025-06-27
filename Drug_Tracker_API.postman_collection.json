@@ -11,6 +11,21 @@
 			"item": [
 				{
 					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 201) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('auth_token', response.token);",
+									"    console.log('Token saved:', response.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -42,6 +57,21 @@
 				},
 				{
 					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('auth_token', response.token);",
+									"    console.log('Token saved:', response.token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -73,6 +103,20 @@
 				},
 				{
 					"name": "Logout User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    pm.collectionVariables.set('auth_token', '');",
+									"    console.log('Token cleared');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -111,10 +155,6 @@
 							{
 								"key": "Accept",
 								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
 							}
 						],
 						"url": {
@@ -145,10 +185,6 @@
 							{
 								"key": "Accept",
 								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
 							}
 						],
 						"url": {
@@ -172,6 +208,19 @@
 			"item": [
 				{
 					"name": "Get User Medications",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.collectionVariables.get('auth_token')) {",
+									"    console.warn('No auth token found. Please login first.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -181,10 +230,6 @@
 							},
 							{
 								"key": "Accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
 								"value": "application/json"
 							}
 						],
@@ -203,6 +248,19 @@
 				},
 				{
 					"name": "Add Medication",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.collectionVariables.get('auth_token')) {",
+									"    console.warn('No auth token found. Please login first.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -221,7 +279,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rxcui\": \"1191\"\n}"
+							"raw": "{\n    \"rxcui\": \"2057158\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/medications",
@@ -238,6 +296,19 @@
 				},
 				{
 					"name": "Add Medication - Duplicate",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.collectionVariables.get('auth_token')) {",
+									"    console.warn('No auth token found. Please login first.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -256,7 +327,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rxcui\": \"1191\"\n}"
+							"raw": "{\n    \"rxcui\": \"2057158\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/medications",
@@ -273,6 +344,19 @@
 				},
 				{
 					"name": "Remove Medication",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.collectionVariables.get('auth_token')) {",
+									"    console.warn('No auth token found. Please login first.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -291,7 +375,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"rxcui\": \"1191\"\n}"
+							"raw": "{\n    \"rxcui\": \"2057158\"\n}"
 						},
 						"url": {
 							"raw": "{{base_url}}/api/medications",
@@ -308,6 +392,19 @@
 				},
 				{
 					"name": "Remove Medication - Not Found",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if (!pm.collectionVariables.get('auth_token')) {",
+									"    console.warn('No auth token found. Please login first.');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -352,7 +449,7 @@
 		},
 		{
 			"key": "auth_token",
-			"value": "your_auth_token_here",
+			"value": "",
 			"type": "string"
 		}
 	]
